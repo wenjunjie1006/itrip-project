@@ -1,0 +1,80 @@
+#指定端口号
+server:
+  port: 8801
+  # 指定servlet上下文路径
+  servlet:
+    context-path: /auth
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/itripdb?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: 123456
+  #配置Redis
+  redis:
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: 5000
+        max-idle: 10
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 5000
+  #返回json的全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  #配置邮件发送基本信息
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 2331073264@qq.com
+    password: yhwojmaqkcohecdg  #邮箱密码，需要根据不同的邮箱做不同的配置
+    protocol: smtp
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.port: 465 #465或者994
+    properties.mail.display.sendmail: Java
+    properties.mail.display.sendname: itrip
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    properties.mail.from: 2331073264@qq.com
+  #微服务注册器
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+  #应用名,也是注册服务名
+  application:
+    name: itrip-auth
+#MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath:com/cskt/mapper/xml/*.xml
+  configuration:
+    #开启驼峰命名法
+    map-underscore-to-camel-case: true
+    #日志实现
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  #别名
+  type-aliases-package: com.cskt.entity
+  #逻辑删除
+  global-config:
+    db-config:
+      #全局逻辑删除的实体字段名(since 3.3.0，陪之后可以忽略不配置步骤2)
+      logic-delete-field: isDeleted
+      # 逻辑已删除值(默认为 1)
+      logic-delete-value: 1
+      # 逻辑未删除值(默认为 0)
+      logic-not-delete-value: 0
+email:
+  send:
+    enable: true
+
+sms:
+  send:
+    enable: true
